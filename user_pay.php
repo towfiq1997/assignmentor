@@ -22,7 +22,7 @@ if($row['assignment_acc_status']=="not_taken"){
 }
 ?>
     <div class="payment_section flex my-2 p-2">
-             <form action="POST" class="pay_tbl" style="padding-bottom: 40px;">
+             <form action="" method="POST" class="pay_tbl" style="padding-bottom: 40px;">
                 <h2 class="text-center" style="width: 100%; background-color: black; color: white;">Payment</h2>
                  <table class="user_pay">
                      <tr>
@@ -44,6 +44,10 @@ if($row['assignment_acc_status']=="not_taken"){
                      <tr>
                         <td>Assignment Id</td>
                         <td><?php echo $row2['assignment_id']; ?></td>
+                     </tr>
+                     <tr>
+                        <td>Trx ID</td>
+                        <td><input type="text" name="trxid"></td>
                      </tr>
                      <tr>
                          <td colspan="2" class="no_padding">
