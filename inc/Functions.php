@@ -49,6 +49,17 @@ class Assignmentor{
             return '<div class="alert alert-error"><i class="fas fa-times"></i>Something Went Wrong</div>';
         }
     }
+
+     public function user_payment($user_id,$solver_id,$ass_id,$trxid,$word_count,$price){
+        $sql = "INSERT INTO admin_account (admin_ass_id,admin_page_count,admin_user_id,admin_amount,admin_solver_id,trxid) VALUES('$ass_id','$word_count','$user_id','$price','$solver_id','$trxid')";
+        if($this->con->query($sql)===TRUE){
+            $sql2 = "UPDATE assignment SET assignment_pay_status='sent' WHERE assignment_id='$ass_id'";
+            $res = $this->con->query($sql2);
+            return '<div class="alert alert-success"><i class="fas fa-check"></i>Payment Deposite Successfully Added</div>'; 
+        }else{
+            return '<div class="alert alert-error"><i class="fas fa-times"></i>Something Went Wrong</div>';
+        }
+     } 
 }
 
 ?>
