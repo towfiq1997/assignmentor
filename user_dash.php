@@ -66,7 +66,7 @@ include 'inc/Functions.php';
         <?php 
             if($row['assignment_pay_status']=="pending"){ ?>
                 <div class="flex_column icon_d red ">
-                    <a href="#" class="bouncing"><i class="fas fa-times-circle"></i>Do Pay</a>
+                    <a href="user_pay.php?assid=<?php echo $row['assignment_id'];?>" class="bouncing"><i class="fas fa-times-circle"></i>Do Pay</a>
                 </div>
            <?php }elseif($row['assignment_pay_status']=="sent"){ ?>
                 <div class="flex_column icon_d blue">
