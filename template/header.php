@@ -28,7 +28,7 @@
                 <a href=""><i class="fas fa-plus"></i></a>
                 <a href=""><i class="fas fa-user"></i></a>
                 <a href=""><i class="fas fa-question-circle"></i></a>
-                <a href=""><i class="fas fa-pen-nib"></i></a>
+                <a href="logout.php"><i class="fas fa-pen-nib"></i></a>
             </div>
         </div>
     </div>
