@@ -10,12 +10,17 @@ class Assignmentor{
     public function signup($email,$username,$fullname,$password){
            $checksql = "SELECT user_name FROM user WHERE user_email='$email' AND user_name='$username'";
            $chk_res = $this->con->query($checksql);
+           $token = bin2hex(random_bytes(15));
            if($chk_res->num_rows>0){
                return '<div class="alert alert-error"><i class="fas fa-times"></i>User Already been registered</div>';
            }else{
-               $new_entry = "INSERT INTO user (user_fullname,user_email,user_pass,user_name) VALUES('$fullname','$email','$password','$username')";
+               $new_entry = "INSERT INTO user (user_fullname,user_email,user_pass,user_name,actiavation_token) VALUES('$fullname','$email','$password','$username','$token')";
                if($this->con->query($new_entry)==TRUE){
-                   return '<div class="alert alert-success"><i class="fas fa-check"></i>User Created Successfully >> <a href="index.php">Login</a></div>';
+                $to_email = $email;
+                $msg = "Hi get verified http://localhost/assignmentor/ativation.php?token={$token}";
+                mail($to_email,"Account Verification",$msg);
+                //header('location:signin.php?activate_info=1'); 
+                //    return '<div class="alert alert-success"><i class="fas fa-check"></i>User Created Successfully >> <a href="index.php">Login</a></div>';
                }
            }
            $check = $this->con->query($sql);

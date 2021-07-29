@@ -1,25 +1,3 @@
-<?php session_start();
-include 'inc/Functions.php';
-$uid = isset($_SESSION['u_id']) ? $_SESSION['u_id'] : NULL;
-$u_uname = isset($_SESSION['u_uname']) ? $_SESSION['u_uname'] : NULL;
-if (!empty($uid) || !empty($u_uname)) {
-    header('location:dashboard.php?uid='.$_SESSION['u_id'].'&uname='.$_SESSION['u_uname'].'&ustatus='.$_SESSION['u_status'].'');
-}
-// if ($uid == !NULL && $u_uname == !NULL) {
-//     header('location:dashboard.php?uid='.$_SESSION['u_id'].'&uname='.$_SESSION['u_uname'].'&ustatus='.$_SESSION['u_status'].'');
-// }
-if(isset($_POST['submit'])){
-    $email = isset($_POST['email'])?$_POST['email']:NULL;
-    $password = isset($_POST['pass'])?$_POST['pass']:NULL;
-    if($email==NULL || $password ==NULL){
-        $error = '<div class="alert alert-error"><i class="fas fa-times"></i>Field Must Not Be Empty</div>';
-    }else{
-        $conn = new Assignmentor();
-        $signin = $conn->login($email,$password);
-       
-    }
- }
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,31 +10,37 @@ if(isset($_POST['submit'])){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-    <div class="login flex">
-        <div class="inner-login-box flex">
-            <img src="assets/images/am.jpg" alt="">
-            <h3 class="text-center my-1">Login to your account</h3>
-            <?php
-             if(isset($error)){
-                echo $error;
-            }
-            if(isset($signin)){
-                echo $signin;
-            }
-            ?>
-            <form method="POST" style="width: 100%;">
-                <div class="abs">
-                    <i class="fas fa-envelope-square"></i>
-                    <input class="my-1" type="text" name="email" placeholder="Enter Username Or Email">
-                </div>
-                <div class="abs">
-                    <i class="fas fa-key"></i>
-                    <input class="my-1" type="password" name="pass" placeholder="Enter your password">
-                </div>
-                <input class="btn" type="submit" name="submit" value="Login">
-            </form>
-            <a href="#">Sign Up</a>
+    <div class="outer_bg">
+        <div class="container flex">
+            <div class="header_logo">
+                <img src="assets/images/am.jpg" alt="">
+            </div>
+            <div class="header_search flex">
+                <button style="margin-right:5px" class="btn"><a style="color:white" href="signin.php">Sign In</a></button>
+                <button class="btn"><a style="color:white" href="signup.php">Sign Up</a></button>
+            </div>
         </div>
-    </div> 
+    </div>
+    <div class="what_u_do my-4">
+        <div class="container text-center">
+            <h3>Your trusted platform for getting help with assignment presntation</h3>
+            <h4 class="my-2">Why Should you choose us</h4>
+
+            <p style="color:green;font-size:20px;"><i class="fas fa-question" style="color:green;margin-right:5px;font-size:18px"></i>Only expert solver</p>
+
+           
+            <p style="color:green;font-size:20px;"><i class="fas fa-book" style="color:green;margin-right:5px;font-size:18px"></i>All subject coverd</p>
+
+    
+            <p style="color:green;font-size:20px;"><i class="fas fa-check" style="color:green;margin-right:5px;font-size:18px"></i>Full privacy options</p>
+
+            
+            <p style="color:green;font-size:20px;"><i class="fas fa-pen" style="color:green;margin-right:5px;font-size:18px"></i>Solution in hand forl all types</p>
+
+            <p style="color:green;font-size:20px;"><i class="fas fa-dollar-sign" style="color:green;margin-right:5px;font-size:18px"></i>Solution in hand forl all types</p>
+           
+        </div>
+    </div>
+    <script src="assets/js/app.js"></script>
 </body>
 </html>

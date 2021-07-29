@@ -3,7 +3,6 @@ session_start();
 include 'template/header.php';
 include 'inc/Functions.php';
 
-
 ?>
     <div class="breadcumb_section my-2">
         <div class="container text-center">
