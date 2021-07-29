@@ -24,11 +24,10 @@
     <div class="header-nav m-3">
         <div class="container">
             <div class="nav_icons flex">
-                <a href="#"><i class="fas fa-home"></i></a>
-                <a href=""><i class="fas fa-plus"></i></a>
-                <a href=""><i class="fas fa-user"></i></a>
-                <a href=""><i class="fas fa-question-circle"></i></a>
-                <a href="logout.php"><i class="fas fa-pen-nib"></i></a>
+                <a href="#"><i class="fas fa-home"> Home</i></a>
+                <a href="addpost.php"><i class="fas fa-plus"> Add Post</i></a>
+                <a href="profile.php"><i class="fas fa-user"> Profile</i></a>
+                <a href="logout.php"><i class="fas fa-sign-out-alt"> Log out</i></a>
             </div>
         </div>
     </div>

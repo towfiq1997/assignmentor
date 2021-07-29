@@ -7,23 +7,34 @@ class Assignmentor{
 		$db = new Database();
 		$this->con = $db->connect();
     }
-    public function signup($email,$username,$fullname,$password){
-            $checksql = "SELECT user_name FROM user WHERE user_email='$email' AND user_name='$username'";
-           $chk_res = $this->con->query($checksql);
-           $token = bin2hex(random_bytes(15));
-           if($chk_res->num_rows>0){
-               return '<div class="alert alert-error"><i class="fas fa-times"></i>User Already been registered</div>';
-           }else{
-            $new_entry = "INSERT INTO user (user_fullname,user_email,user_pass,user_name,actiavation_token) VALUES('$fullname','$email','$password','$username','$token')";
+    public function signup($email,$username,$fullname,$password,$adress,$uni,$age,$gender,$birthday){
+        $checksql = "SELECT user_name FROM user WHERE user_email='$email' AND user_name='$username'";
+        $chk_res = $this->con->query($checksql);
+        $token = bin2hex(random_bytes(15));
+        if($chk_res->num_rows>0){
+            return '<div class="alert alert-error"><i class="fas fa-times"></i>User Already been registered</div>';
+        }else{
+            $new_entry = "INSERT INTO user (user_fullname,user_email,user_pass,user_name,actiavation_token,address,university,age,gender,birthday) VALUES('$fullname','$email','$password','$username','$token','$adress','$uni','$age','$gender','$birthday')";
             if($this->con->query($new_entry)==TRUE){
              $to_email = $email;
-             $msg = "Hi fuck u http://localhost/assignmentor/ativation.php?token={$token}";
-             mail($to_email,"Account Verification",$msg);
+             $subject = "Simple Email Test via PHP";
+             $body = "Hi, This is test email send by PHP Script";
+             $headers = "From:jsislove21@gmail.com";
+             
+             if (mail($to_email, $subject, $body, $headers)) {
+                 echo "Email successfully sent to $to_email...";
+             } else {
+                 echo "Email sending failed...";
+             }
+             header('location:signin.php');
+             // $to_email = $email;
+             // $msg = "Hi get verified http://localhost/assignmentor/ativation.php?token={$token}";  
+             //mail($to_email,"Account Verification",$msg);
              //header('location:signin.php?activate_info=1'); 
              //    return '<div class="alert alert-success"><i class="fas fa-check"></i>User Created Successfully >> <a href="index.php">Login</a></div>';
             }
-           }
-    }
+        }
+ }
 
     public function login($email,$password){
         $pre_stmt = $this->con->prepare("SELECT user_id,user_name,user_email,user_pass,user_status FROM user WHERE user_email = ? && user_pass = ?");
