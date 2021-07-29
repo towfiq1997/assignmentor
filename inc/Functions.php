@@ -17,8 +17,8 @@ class Assignmentor{
             $new_entry = "INSERT INTO user (user_fullname,user_email,user_pass,user_name,actiavation_token,address,university,age,gender,birthday) VALUES('$fullname','$email','$password','$username','$token','$adress','$uni','$age','$gender','$birthday')";
             if($this->con->query($new_entry)==TRUE){
              $to_email = $email;
-             $subject = "Simple Email Test via PHP";
-             $body = "Hi, This is test email send by PHP Script";
+             $subject = "Account verification";
+             $body = "Hi get verified http://localhost/assignmentor/ativation.php?token={$token}";
              $headers = "From:jsislove21@gmail.com";
              
              if (mail($to_email, $subject, $body, $headers)) {
