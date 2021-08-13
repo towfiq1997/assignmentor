@@ -1,11 +1,9 @@
 <?php 
     session_start();   
     require 'template/header.php';
-    require 'inc/Functions.php';
-    $pay_check = new Assignmentor();
     $id = $_SESSION['u_id'];
     $sql = "SELECT user_fullname,user_status,user_name,user_email,address,university,age,gender,birthday FROM user WHERE user_id='$id'";
-    $res = $pay_check->con->query($sql);
+    $res = $assignmentor->con->query($sql);
     $row = $res->fetch_assoc();
 ?>
     <div class="payment_section flex my-2 p-2">

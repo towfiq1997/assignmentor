@@ -10,24 +10,56 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-    <div class="outer_bg">
+    <div class="header_search py-1">
         <div class="container flex">
-            <div class="header_logo">
-                <img src="assets/images/am.jpg" alt="">
-            </div>
-            <div class="header_search flex">
-                <input type="text">
-                <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-            </div>
+              <a href="#" class="logo flex">
+                  <img src="assets/images/am.jpg" alt="">
+              </a>
+              <div class="search_bar">
+                  <i class="fas fa-search"></i>
+                  <input type="text" name="h_search" id="h_search">
+              </div>
+              <a href="account" class="account_info flex">
+                  <div class="icon_dollar">
+                      <img src="assets/images/icons/money.png" alt="">
+                  </div>
+                  <div class="name_amt">
+                      <?php
+                      require 'inc/Functions.php';
+                      $assignmentor = new Assignmentor();
+                      $netmoney = $assignmentor->sumcount();
+                      ?>
+                      <p><?php echo $_SESSION['u_uname']; ?></p>
+                      <p><?php echo $netmoney; ?></p>
+
+                  </div>
+                  
+              </a>
         </div>
     </div>
-    <div class="header-nav m-3">
+    <div class="header-nav py-1">
         <div class="container">
             <div class="nav_icons flex">
-                <a href="dashboard.php"><i class="fas fa-home"> Home</i></a>
-                <a href="addpost.php"><i class="fas fa-plus"> Add Post</i></a>
-                <a href="profile.php"><i class="fas fa-user"> Profile</i></a>
-                <a href="logout.php"><i class="fas fa-sign-out-alt"> Log out</i></a>
+                <a class="flex-c" href="dashboard">
+                    <img src="assets/images/icons/house.png" alt="">
+                    <p>Home</p>
+                </a>
+                <a class="flex-c" href="addpost">
+                    <img src="assets/images/icons/plus.png" alt="">
+                    <p>Add Post</p>
+                </a>
+                <a class="flex-c" href="user_dash">
+                    <img src="assets/images/icons/dashboard.png" alt="">
+                    <p>Dashboard</p>
+                </a>
+                <a class="flex-c" href="profile">
+                    <img src="assets/images/icons/user.png" alt="">
+                    <p>Profile</p>
+                </a>
+                <a class="flex-c" href="logout">
+                    <img src="assets/images/icons/logout.png" alt="">
+                    <p>Logout</p>
+                </a>
             </div>
         </div>
     </div>

@@ -36,6 +36,20 @@ if(isset($_POST['submit'])){
         <div class="inner-login-box flex">
             <img src="assets/images/am.jpg" alt="">
             <h3 class="text-center my-1">Login to your account</h3>
+            <?php
+             if(isset($error)){
+                echo $error;
+            }
+            if(isset($signin)){
+                echo $signin;
+            }
+            if(isset($_GET['verified'])){
+                echo '<div class="alert alert-success"><i class="fas fa-check"></i>You been verified login here</div>';
+            }
+            if(isset($_GET['activation'])){
+                echo '<div class="alert alert-success"><i class="fas fa-check"></i>Check mail to get verified</div>';
+            }
+            ?>
                 <form method="POST" style="width: 100%;">
                 <div class="abs">
                     <i class="fas fa-envelope-square"></i>
@@ -47,7 +61,15 @@ if(isset($_POST['submit'])){
                 </div>
                 <input class="btn" type="submit" name="submit" value="Login">
             </form>
+            <script>
+                const x = document.getElementById("demo");
+                setInterval(() => {
+                    x.remove();
+                    console.log(00);
+                }, 1000);
+            </script>
             <a href="signup.php">Sign Up</a>
+            <a href="forgate_pass.php">Forgate Password</a>
         </div>
     </div> 
 </body>

@@ -1,6 +1,5 @@
 <?php
 session_start();
-include 'inc/Functions.php';
 include 'template/header.php'; 
 if(isset($_POST['submit'])){
     $title = $_POST['post_title'];
@@ -11,8 +10,7 @@ if(isset($_POST['submit'])){
         $error = '<div class="alert alert-error"><i class="fas fa-times"></i>Field Must Not Be Empty</div>';
     }else{
         $uid = $_SESSION['u_id'];
-        $conn = new Assignmentor();
-        $addpost = $conn->addpost($title ,$desc,$wordcount,$price,$uid);
+        $addpost = $assignmentor->addpost($title ,$desc,$wordcount,$price,$uid);
        
     }
  }

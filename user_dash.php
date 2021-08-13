@@ -1,7 +1,11 @@
 <?php
 session_start();
 include 'template/header.php';
-include 'inc/Functions.php';
+$uid = isset($_SESSION['u_id']) ? $_SESSION['u_id'] : NULL;
+$u_uname = isset($_SESSION['u_uname']) ? $_SESSION['u_uname'] : NULL;
+if (empty($uid) || empty($u_uname)) {
+    header('location:index.php');
+}
 
 ?>
     <div class="breadcumb_section my-2">
@@ -13,24 +17,25 @@ include 'inc/Functions.php';
    <tr>
            <th>SN</th>
            <th>Id</th>
+           <th>Title</th>
            <th>Solver</th>
-           <th>Price</th>
            <th>Accepetence Status</th>
            <th>Solution Status</th>
            <th>Pay</th>
            <th>Details/Download</th>
        </tr>
        <?php
-       $user_dash = new Assignmentor();
-       $sql = "SELECT * FROM assignment";
-       if($excute = $user_dash->con->query($sql)){
+       //$sql = "SELECT assignment.assignment_id,assignment.assignment_title,assignment.assignment_solver,assignment.assignment_acc_status,assignment.assignment_solv_status,assignment.assignment_pay_status,assignment.p_time,solver.solver_username,solver.solver_id  FROM assignment INNER JOIN solver ON assignment.assignment_solver=solver.solver_id WHERE assignment.assignment_user='$uid'";
+
+       $sql = "SELECT * FROM assignment WHERE assignment_user='$uid'";
+       if($excute = $assignmentor->con->query($sql)){
            $i = 1;
         while($row = $excute->fetch_assoc()){ ?>
         <tr>
         <td class="text-center"><?php echo $i; ?></td>
         <td class="text-center"><?php echo $row['assignment_id']; ?></td>
         <td class="text-center"><?php echo substr($row['assignment_title'],0,15).'...'; ?></td>
-        <td class="text-center"><?php echo $row['assignment_price']; ?></td>
+        <td class="text-center"><?php echo $row['assignment_solver']; ?></td>
         <td class="text-center">
             <?php 
             if($row['assignment_acc_status']=="not_taken"){ ?>
@@ -67,18 +72,13 @@ include 'inc/Functions.php';
                 <div class="flex_column icon_d red ">
                     <a href="user_pay.php?assid=<?php echo $row['assignment_id'];?>" class="bouncing"><i class="fas fa-times-circle"></i>Do Pay</a>
                 </div>
-           <?php }elseif($row['assignment_pay_status']=="sent"){ ?>
-                <div class="flex_column icon_d blue">
+           <?php }else{?>
+                <div class="flex_column icon_d green">
                     <p><i class="fas fa-paper-plane"></i>Sent</p>
                 </div>
-           <?php }else{ ?>
-                <div class="flex_column icon_d green">
-                    <p><i class="fas fa-check"></i>Accepted</p>
-                </div>
-           <?php }
-            ?>
+           <?php }?>
         </td>
-        <td class="text-center"><a href=""><i class="fas fa-info-circle"></i></a></td>
+        <td class="text-center"><a href="finale_assignment.php?assid=<?php echo $row['assignment_id']; ?>"><i class="fas fa-info-circle"></i></a></td>
         </tr>
        </tr>
        <?php

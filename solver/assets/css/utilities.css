@@ -11,7 +11,6 @@
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
   padding: 20px;
 }
-
 .btn {
   display: inline-block;
   padding: 10px 30px;
@@ -21,15 +20,27 @@
   border: none;
   border-radius: 0px;
 }
+.btn-loading {
+  display: inline-block;
+  padding: 10px 30px;
+  height: 40px;
+  width: 102px;
+  cursor: pointer;
+  background: green;
+  color: #fff;
+  border: none;
+  border-radius: 0px;
+  font-weight: bold;
+}
 
 .btn-outline {
   background-color: transparent;
   border: 1px #fff solid;
 }
 
-.btn:hover {
+/* .btn:hover {
   transform: scale(0.98);
-}
+} */
 
 /* Backgrounds & colored buttons */
 .bg-primary,
@@ -113,6 +124,7 @@
   padding: 10px 20px;
   font-weight: bold;
   margin: 15px 0;
+  width: 100%;
 }
 
 .alert i {
@@ -131,6 +143,13 @@
 
 .flex {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.flex_column {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -229,4 +248,18 @@
 
 .p-5 {
   padding: 4rem;
+}
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+.taken_btn {
+  cursor: not-allowed;
+  opacity: 0.5;
+  pointer-events: none;
 }

@@ -66,7 +66,7 @@ if(isset($_POST['submit'])){
                    <label for="javascript">Others</label>
                    <br><br> 
                    <label for="username"><b>Birthday</b></label>
-                   <input class="my-1 q-all" type="date" placeholder="Enter Birthday" name="birthday" id="user_uname" required autocomplete="off">
+                   <input class="my-1 q-all" type="date" placeholder="Enter Birthday" name="birthday"  required autocomplete="off">
                    <br>
                    <label for="username"><b>Username</b></label>
                    <input class="my-1 q-all" type="text" placeholder="Enter Username" name="username" id="user_uname" required autocomplete="off">
@@ -74,7 +74,7 @@ if(isset($_POST['submit'])){
                     <input class="my-1 q-all" type="password" name="pass" placeholder="Enter your password" autocomplete="off">
                 <input class="btn" type="submit" name="submit" value="Sign Up">
             </form>
-            <a href="#">Log In</a>
+            <a href="signin">Log In</a>
         </div>
     </div>
     <script>
@@ -85,7 +85,7 @@ const username = document.getElementById("user_uname");
 email.addEventListener("change", () => {
   const parts = email.value.split("@");
   const usernameValue = parts[0];
-
+  console.log(usernameValue);
   username.value = usernameValue;
 });
 

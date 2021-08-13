@@ -27,9 +27,9 @@
   border: 1px #fff solid;
 }
 
-.btn:hover {
+/* .btn:hover {
   transform: scale(0.98);
-}
+} */
 
 /* Backgrounds & colored buttons */
 .bg-primary,
@@ -237,4 +237,13 @@
 
 .p-5 {
   padding: 4rem;
+}
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }

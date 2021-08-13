@@ -35,11 +35,24 @@ body {
   color: #ff7600;
 }
 .header_search input[type="text"] {
-  border: 2px solid black;
   width: 100%;
   padding: 6.5px;
   font-size: 16px;
-  border-right: none;
+  border-radius: 50px;
+  padding-left: 37px;
+  background: #f0f2f5;
+  border: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.post_comment input[type="text"] {
+  width: 100%;
+  padding: 6.48px;
+  font-size: 16px;
+  background: #f0f2f5;
+  border: 2px solid black;
+  border-radius: 0;
 }
 .header_search input[type="text"]:focus {
   outline: none;
@@ -72,6 +85,9 @@ body {
   justify-content: space-between;
   flex-wrap: wrap;
 }
+.single-comment.flex {
+  justify-content: space-between;
+}
 .pagination_section a {
   padding-top: 8px;
   padding-bottom: 8px;
@@ -90,8 +106,6 @@ textarea {
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
-}
-.addpost_section label {
 }
 .addpost_section input[type="submit"] {
   background-color: var(--primary-color);
@@ -203,6 +217,7 @@ td {
   font-weight: bold;
   height: 35px !important;
   width: 115px;
+  margin: 0 auto;
 }
 .icon_d i {
   position: relative;
@@ -229,6 +244,110 @@ td {
   animation-iteration-count: infinite;
   animation-delay: 2s;
   color: #f4f4f4;
+}
+.post_title {
+  color: green;
+}
+
+.post_title h2 i {
+  font-size: 22px;
+  margin-right: 12px;
+}
+.post_information h5 {
+  font-size: 16px;
+}
+.single-comment h5 i {
+  margin-right: 10px;
+}
+.post_information h5 i {
+  margin-right: 10px;
+  font-size: 15px;
+}
+.post_desc p {
+  font-size: 20px;
+  font-weight: 600;
+}
+.post_comment p {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.post_comment h5 {
+  font-size: 16px;
+}
+.nav_icons img {
+  height: 30px;
+  width: 30px;
+}
+
+.flex-c {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+a.flex-c p {
+  font-size: 15px;
+  font-weight: 900;
+  padding-top: 4px;
+}
+.header-nav {
+  background: white;
+  position: sticky;
+  width: 100%;
+  top: 0;
+  margin-top: 25px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+#commment_toggle {
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
+  color: blue;
+  font-weight: 800;
+}
+.d_none {
+  display: none;
+}
+.header_logo.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header_search {
+  background: white;
+}
+.header_search .flex {
+  justify-content: space-between;
+}
+.logo img {
+  width: 70px;
+}
+.search_bar {
+  position: relative;
+}
+
+.search_bar i {
+  position: absolute;
+  color: gray;
+  top: 12px;
+  left: 16px;
+  font-size: 17px;
+}
+.icon_dollar img {
+  height: 35px;
+  width: 35px;
+}
+.name_amt {
+  margin-left: 10px;
+  line-height: 1.1;
+  position: relative;
+  top: -5px;
+}
+.name_amt p {
+  font-weight: bold;
+  color: black;
 }
 @keyframes bouncer {
   0% {

@@ -1,139 +1,77 @@
-<?php require  'template/header.php'; ?>
-<div class="timeline-section">
-        <div class="single-post my-2">
-            <div class="container">
-                <div class="card availability">
-                    <div class="apply_section text-center">
-                        <!-- <a href="#" id="apply"><i class="far fa-check-circle"></i></a> -->
-                        
-                    </div>
-                    <div class="post_title flex">
-                        <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, quia!</h4>
-                        <a class="my-2" href="#"><button class="btn">Apply</button></a>
-                    </div>
-                    <div class="post_information my-1 flex">
-                          <h5>User-Nishan</h5>
-                          <h5>10:30 AM</h5>
-                    </div>
-                    <div class="post_desc">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non corporis libero quidem minima ea necessitatibus maxime aliquam eum maiores, nam nesciunt ratione incidunt ad, sed iure ipsum hic aut quod vitae tempora amet. Possimus fugit modi consequuntur, itaque ipsum explicabo. Consectetur maxime unde, minima sunt a sit magni, ut nulla fuga error recusandae beatae? Id necessitatibus mollitia delectus voluptate quisquam asperiores corrupti, blanditiis ut error quaerat, dignissimos eos odit in totam quasi maxime? Delectus natus culpa necessitatibus est maiores, ducimus aut. Quisquam obcaecati ipsum similique voluptatum harum accusamus sint optio dicta fugit, veniam, doloribus at dolore. Quo, officia. Sit, nesciunt.</p>
-                    </div>
-                    <div class="post_comment my-2">
-                          <div class="single-comment my-1">
-                            <h5>Cooments-Ebrahim</h5>
-                            <p>Coments Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, ad!</p>
-                          </div>
-                          <div class="single-comment my-1">
-                            <h5>Cooments-Ebrahim</h5>
-                            <p>Coments Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, ad!</p>
-                          </div>
-                    </div>
+<?php 
+session_start();
+include 'inc/Functions.php';
+$id = isset($_SESSION['id']) ? $_SESSION['id'] : NULL;
+$name = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
+if (!empty($id) || !empty($name)) {
+    header('location:dashboard.php');
+}
+// if ($uid == !NULL && $u_uname == !NULL) {
+//     header('location:dashboard.php?uid='.$_SESSION['u_id'].'&uname='.$_SESSION['u_uname'].'&ustatus='.$_SESSION['u_status'].'');
+// }
+if(isset($_POST['submit'])){
+    $email = isset($_POST['email'])?$_POST['email']:NULL;
+    $password = isset($_POST['pass'])?$_POST['pass']:NULL;
+    if($email==NULL || $password ==NULL){
+        $error = '<div class="alert alert-error"><i class="fas fa-times"></i>Field Must Not Be Empty</div>';
+    }else{
+        $conn = new Assignmentor();
+        $signin = $conn->login($email,$password);
+       
+    }
+ }
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignmentor</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/utilities.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="login flex">
+        <div class="inner-login-box flex">
+            <img src="assets/images/am.jpg" alt="">
+            <h3 class="text-center my-1">Login to your account</h3>
+            <?php
+             if(isset($error)){
+                echo $error;
+            }
+            if(isset($signin)){
+                echo $signin;
+            }
+            if(isset($_GET['verified'])){
+                echo '<div class="alert alert-success"><i class="fas fa-check"></i>You been verified login here</div>';
+            }
+            if(isset($_GET['activation'])){
+                echo '<div class="alert alert-success"><i class="fas fa-check"></i>Check mail to get verified</div>';
+            }
+            ?>
+                <form method="POST" style="width: 100%;">
+                <div class="abs">
+                    <i class="fas fa-envelope-square"></i>
+                    <input class="my-1" type="text" name="email" placeholder="Enter Username Or Email">
                 </div>
-                <div class="header_search flex">
-                    <input type="text">
-                    <button class="btn" type="submit">Commment</button>
+                <div class="abs">
+                    <i class="fas fa-key"></i>
+                    <input class="my-1" type="password" name="pass" placeholder="Enter your password">
                 </div>
-            </div>
+                <input class="btn" type="submit" name="submit" value="Login">
+            </form>
+            <script>
+                const x = document.getElementById("demo");
+                setInterval(() => {
+                    x.remove();
+                    console.log(00);
+                }, 1000);
+            </script>
+            <a href="signup.php">Sign Up</a>
+            <a href="forgate_pass.php">Forgate Password</a>
         </div>
-        <div class="single-post my-2">
-            <div class="container">
-                <div class="card">
-                    <div class="post_title flex">
-                        <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, quia!</h4>
-                        <a class="my-2" href="#"><button class="btn">Apply</button></a>
-                    </div>
-                    <div class="post_information my-1 flex">
-                          <h5>User-Nishan</h5>
-                          <h5>10:30 AM</h5>
-                    </div>
-                    <div class="post_desc">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non corporis libero quidem minima ea necessitatibus maxime aliquam eum maiores, nam nesciunt ratione incidunt ad, sed iure ipsum hic aut quod vitae tempora amet. Possimus fugit modi consequuntur, itaque ipsum explicabo. Consectetur maxime unde, minima sunt a sit magni, ut nulla fuga error recusandae beatae? Id necessitatibus mollitia delectus voluptate quisquam asperiores corrupti, blanditiis ut error quaerat, dignissimos eos odit in totam quasi maxime? Delectus natus culpa necessitatibus est maiores, ducimus aut. Quisquam obcaecati ipsum similique voluptatum harum accusamus sint optio dicta fugit, veniam, doloribus at dolore. Quo, officia. Sit, nesciunt.</p>
-                    </div>
-                    <div class="post_comment my-2">
-                          <div class="single-comment my-1">
-                            <h5>Cooments-Ebrahim</h5>
-                            <p>Coments Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, ad!</p>
-                          </div>
-                          <div class="single-comment my-1">
-                            <h5>Cooments-Ebrahim</h5>
-                            <p>Coments Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, ad!</p>
-                          </div>
-                    </div>
-                </div>
-                <div class="header_search flex">
-                    <input type="text">
-                    <button class="btn" type="submit">Commment</button>
-                </div>
-            </div>
-        </div>
-        <div class="single-post my-2">
-            <div class="container">
-                <div class="card">
-                    <div class="post_title flex">
-                        <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, quia!</h4>
-                        <a class="my-2" href="#"><button class="btn">Apply</button></a>
-                    </div>
-                    <div class="post_information my-1 flex">
-                          <h5>User-Nishan</h5>
-                          <h5>10:30 AM</h5>
-                    </div>
-                    <div class="post_desc">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non corporis libero quidem minima ea necessitatibus maxime aliquam eum maiores, nam nesciunt ratione incidunt ad, sed iure ipsum hic aut quod vitae tempora amet. Possimus fugit modi consequuntur, itaque ipsum explicabo. Consectetur maxime unde, minima sunt a sit magni, ut nulla fuga error recusandae beatae? Id necessitatibus mollitia delectus voluptate quisquam asperiores corrupti, blanditiis ut error quaerat, dignissimos eos odit in totam quasi maxime? Delectus natus culpa necessitatibus est maiores, ducimus aut. Quisquam obcaecati ipsum similique voluptatum harum accusamus sint optio dicta fugit, veniam, doloribus at dolore. Quo, officia. Sit, nesciunt.</p>
-                    </div>
-                    <div class="post_comment my-2">
-                          <div class="single-comment my-1">
-                            <h5>Cooments-Ebrahim</h5>
-                            <p>Coments Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, ad!</p>
-                          </div>
-                          <div class="single-comment my-1">
-                            <h5>Cooments-Ebrahim</h5>
-                            <p>Coments Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, ad!</p>
-                          </div>
-                    </div>
-                </div>
-                <div class="header_search flex">
-                    <input type="text">
-                    <button class="btn" type="submit">Commment</button>
-                </div>
-            </div>
-        </div>
-        <div class="single-post my-2">
-            <div class="container">
-                <div class="card availability">
-                    <div class="post_title flex">
-                        <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, quia!</h4>
-                        <a class="my-2" href="#"><button class="btn">Apply</button></a>
-                    </div>
-                    <div class="post_information my-1 flex">
-                          <h5>User-Nishan</h5>
-                          <h5>10:30 AM</h5>
-                    </div>
-                    <div class="post_desc">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non corporis libero quidem minima ea necessitatibus maxime aliquam eum maiores, nam nesciunt ratione incidunt ad, sed iure ipsum hic aut quod vitae tempora amet. Possimus fugit modi consequuntur, itaque ipsum explicabo. Consectetur maxime unde, minima sunt a sit magni, ut nulla fuga error recusandae beatae? Id necessitatibus mollitia delectus voluptate quisquam asperiores corrupti, blanditiis ut error quaerat, dignissimos eos odit in totam quasi maxime? Delectus natus culpa necessitatibus est maiores, ducimus aut. Quisquam obcaecati ipsum similique voluptatum harum accusamus sint optio dicta fugit, veniam, doloribus at dolore. Quo, officia. Sit, nesciunt.</p>
-                    </div>
-                    <div class="post_comment my-2">
-                          <div class="single-comment my-1">
-                            <h5>Cooments-Ebrahim</h5>
-                            <p>Coments Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, ad!</p>
-                          </div>
-                          <div class="single-comment my-1">
-                            <h5>Cooments-Ebrahim</h5>
-                            <p>Coments Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, ad!</p>
-                          </div>
-                    </div>
-                </div>
-                <div class="header_search flex">
-                    <input type="text">
-                    <button class="btn" type="submit">Commment</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="pagination_section flex my-4">
-        <a href="#">Prev</a>
-        <a href="#">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">Next</a>
-    </div>
- <?php require 'template/footer.php'; ?>
+    </div> 
+</body>
+</html>

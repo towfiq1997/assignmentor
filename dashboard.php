@@ -1,131 +1,73 @@
-<?php require 'template/header.php'; ?>
+<?php session_start();
+ require 'template/header.php'; 
+$uid = isset($_SESSION['u_id']) ? $_SESSION['u_id'] : NULL;
+$u_uname = isset($_SESSION['u_uname']) ? $_SESSION['u_uname'] : NULL;
+if (empty($uid) || empty($u_uname)) {
+    header('location:index.php');
+}
+ ?>
     <div class="timeline-section">
-        <div class="single-post my-2">
+  <?php 
+    $page = isset($_GET['page'])?$_GET['page']:1;
+    $of = ($page-1)*8;
+    $sql = "SELECT  assignment.assignment_id,assignment.assignment_title,assignment.assignment_description,assignment.assignment_user,assignment.assignment_price,assignment.p_time,user.user_id,user.user_name FROM assignment INNER JOIN user ON assignment.assignment_user=user.user_id ORDER BY assignment.assignment_id DESC LIMIT $of,8";
+    if($excute = $assignmentor->con->query($sql)){
+        $count = ceil($excute->num_rows/8);
+        while($row = $excute->fetch_assoc()){ ?>
+              <div class="single-post my-2">
             <div class="container">
                 <div class="card">
                     <div class="post_title">
-                        <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, quia!</h4>
+                        <?php echo $count; ?>
+                        <h2><i class="fas fa-question-circle"></i><?php echo $row['assignment_title'];?></h2>
                     </div>
                     <div class="post_information my-1 flex">
-                          <h5>User-Nishan</h5>
-                          <h5>10:30 AM</h5>
+                          <h5><i class="fas fa-user"></i><?php echo $row['user_name']; ?></h5>
+                          <h5><i class="fas fa-clock"></i><?php echo $row['p_time']; ?></h5>
                     </div>
                     <div class="post_desc">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non corporis libero quidem minima ea necessitatibus maxime aliquam eum maiores, nam nesciunt ratione incidunt ad, sed iure ipsum hic aut quod vitae tempora amet. Possimus fugit modi consequuntur, itaque ipsum explicabo. Consectetur maxime unde, minima sunt a sit magni, ut nulla fuga error recusandae beatae? Id necessitatibus mollitia delectus voluptate quisquam asperiores corrupti, blanditiis ut error quaerat, dignissimos eos odit in totam quasi maxime? Delectus natus culpa necessitatibus est maiores, ducimus aut. Quisquam obcaecati ipsum similique voluptatum harum accusamus sint optio dicta fugit, veniam, doloribus at dolore. Quo, officia. Sit, nesciunt.</p>
+                        <p><?php echo $row['assignment_description']; ?></p>
                     </div>
-                    <div class="post_comment my-2">
-                          <div class="single-comment my-1">
-                            <h5>Cooments-Ebrahim</h5>
-                            <p>Coments Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, ad!</p>
-                          </div>
-                          <div class="single-comment my-1">
-                            <h5>Cooments-Ebrahim</h5>
-                            <p>Coments Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, ad!</p>
-                          </div>
-                    </div>
-                </div>
-                <div class="header_search flex">
-                    <input type="text">
+                    <p class="noselect" id="commment_toggle">Comments</p>
+                    <div class="post_comment my-2 d_none" id="toogle_comment">
+                    <?php
+                    $assid = $row['assignment_id'];
+                     $sql2 = "SELECT * FROM comments WHERE comment_assignment_id='$assid'";
+                     if($excute2 = $assignmentor->con->query($sql2)){
+                         if($excute2->num_rows>0){
+                            //  $count = $excute2->num_rows;
+                            //  echo $count;
+                            while($row2 = $excute2->fetch_assoc()){ ?>
+                                <div class="single-comment my-1 flex">
+                                   <h5><i class="fas fa-user"></i><?php echo $row2['comment_text']."(User)"; ?></h5>
+                                   <p><?php echo $row2['comment_commentar']; ?></p>
+                                </div>
+                           <?php }
+                         }
+                     }
+                    ?>
+                    <div class="header_search">
+                    <form method="post" class="flex comment_form">
+                    <input type="text"   data-id=<?php echo $row['assignment_id']; ?> data-name=<?php echo $u_uname; ?> name="commment">
                     <button class="btn" type="submit">Commment</button>
+                    </form>
                 </div>
+                    </div>
+                </div>
+                <!-- h -->
             </div>
-        </div>
-        <div class="single-post my-2">
-            <div class="container">
-                <div class="card">
-                    <div class="post_title">
-                        <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, quia!</h4>
-                    </div>
-                    <div class="post_information my-1 flex">
-                          <h5>User-Nishan</h5>
-                          <h5>10:30 AM</h5>
-                    </div>
-                    <div class="post_desc">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non corporis libero quidem minima ea necessitatibus maxime aliquam eum maiores, nam nesciunt ratione incidunt ad, sed iure ipsum hic aut quod vitae tempora amet. Possimus fugit modi consequuntur, itaque ipsum explicabo. Consectetur maxime unde, minima sunt a sit magni, ut nulla fuga error recusandae beatae? Id necessitatibus mollitia delectus voluptate quisquam asperiores corrupti, blanditiis ut error quaerat, dignissimos eos odit in totam quasi maxime? Delectus natus culpa necessitatibus est maiores, ducimus aut. Quisquam obcaecati ipsum similique voluptatum harum accusamus sint optio dicta fugit, veniam, doloribus at dolore. Quo, officia. Sit, nesciunt.</p>
-                    </div>
-                    <div class="post_comment my-2">
-                          <div class="single-comment my-1">
-                            <h5>Cooments-Ebrahim</h5>
-                            <p>Coments Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, ad!</p>
-                          </div>
-                          <div class="single-comment my-1">
-                            <h5>Cooments-Ebrahim</h5>
-                            <p>Coments Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, ad!</p>
-                          </div>
-                    </div>
-                </div>
-                <div class="header_search flex">
-                    <input type="text">
-                    <button class="btn" type="submit">Commment</button>
-                </div>
-            </div>
-        </div>
-        <div class="single-post my-2">
-            <div class="container">
-                <div class="card">
-                    <div class="post_title">
-                        <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, quia!</h4>
-                    </div>
-                    <div class="post_information my-1 flex">
-                          <h5>User-Nishan</h5>
-                          <h5>10:30 AM</h5>
-                    </div>
-                    <div class="post_desc">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non corporis libero quidem minima ea necessitatibus maxime aliquam eum maiores, nam nesciunt ratione incidunt ad, sed iure ipsum hic aut quod vitae tempora amet. Possimus fugit modi consequuntur, itaque ipsum explicabo. Consectetur maxime unde, minima sunt a sit magni, ut nulla fuga error recusandae beatae? Id necessitatibus mollitia delectus voluptate quisquam asperiores corrupti, blanditiis ut error quaerat, dignissimos eos odit in totam quasi maxime? Delectus natus culpa necessitatibus est maiores, ducimus aut. Quisquam obcaecati ipsum similique voluptatum harum accusamus sint optio dicta fugit, veniam, doloribus at dolore. Quo, officia. Sit, nesciunt.</p>
-                    </div>
-                    <div class="post_comment my-2">
-                          <div class="single-comment my-1">
-                            <h5>Cooments-Ebrahim</h5>
-                            <p>Coments Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, ad!</p>
-                          </div>
-                          <div class="single-comment my-1">
-                            <h5>Cooments-Ebrahim</h5>
-                            <p>Coments Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, ad!</p>
-                          </div>
-                    </div>
-                </div>
-                <div class="header_search flex">
-                    <input type="text">
-                    <button class="btn" type="submit">Commment</button>
-                </div>
-            </div>
-        </div>
-        <div class="single-post my-2">
-            <div class="container">
-                <div class="card">
-                    <div class="post_title">
-                        <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, quia!</h4>
-                    </div>
-                    <div class="post_information my-1 flex">
-                          <h5>User-Nishan</h5>
-                          <h5>10:30 AM</h5>
-                    </div>
-                    <div class="post_desc">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non corporis libero quidem minima ea necessitatibus maxime aliquam eum maiores, nam nesciunt ratione incidunt ad, sed iure ipsum hic aut quod vitae tempora amet. Possimus fugit modi consequuntur, itaque ipsum explicabo. Consectetur maxime unde, minima sunt a sit magni, ut nulla fuga error recusandae beatae? Id necessitatibus mollitia delectus voluptate quisquam asperiores corrupti, blanditiis ut error quaerat, dignissimos eos odit in totam quasi maxime? Delectus natus culpa necessitatibus est maiores, ducimus aut. Quisquam obcaecati ipsum similique voluptatum harum accusamus sint optio dicta fugit, veniam, doloribus at dolore. Quo, officia. Sit, nesciunt.</p>
-                    </div>
-                    <div class="post_comment my-2">
-                          <div class="single-comment my-1">
-                            <h5>Cooments-Ebrahim</h5>
-                            <p>Coments Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, ad!</p>
-                          </div>
-                          <div class="single-comment my-1">
-                            <h5>Cooments-Ebrahim</h5>
-                            <p>Coments Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, ad!</p>
-                          </div>
-                    </div>
-                </div>
-                <div class="header_search flex">
-                    <input type="text">
-                    <button class="btn" type="submit">Commment</button>
-                </div>
-            </div>
-        </div>
+        </div> 
+    
+       <?php }
+    }
+  ?>
     </div>
     <div class="pagination_section flex my-4">
-        <a href="#">Prev</a>
-        <a href="#">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">Next</a>
+        <?php
+        for($i = 0;$i<=$count;$i++){ ?>
+           <a href="<?php echo 'dashboard.php?page='.$i ?>"><?php echo $i; ?></a>
+      <?php  }
+        
+        ?>
     </div>
     <?php require 'template/footer.php'; ?>
