@@ -1,6 +1,25 @@
 const myForm = document.querySelectorAll(".comment_form");
 const p_toogle = document.querySelectorAll("#commment_toggle");
-
+const digit_validation = document.querySelectorAll("#digit_validation");
+digit_validation.forEach((single) => {
+  single.addEventListener("keyup", (e) => {
+    const value = e.target.value;
+    if (
+      value.includes(0) ||
+      value.includes(1) ||
+      value.includes(2) ||
+      value.includes(3) ||
+      value.includes(4) ||
+      value.includes(5) ||
+      value.includes(6) ||
+      value.includes(7) ||
+      value.includes(8) ||
+      value.includes(9)
+    ) {
+      alert("Digit is not allowed");
+    }
+  });
+});
 p_toogle.forEach((p_single) => {
   p_single.addEventListener("click", (e) => {
     const x = e.target.parentNode;

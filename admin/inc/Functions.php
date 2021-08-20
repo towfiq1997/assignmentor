@@ -91,28 +91,19 @@ class Assignmentor{
         }
  }
 
-    public function login($email,$password){
-        $pre_stmt = $this->con->prepare("SELECT user_id,user_name,user_email,user_pass,user_status FROM user WHERE user_email = ? && user_pass = ?");
-        $pre_stmt->bind_param("ss", $email, $password);
+    public function login($username,$password){
+        $pre_stmt = $this->con->prepare("SELECT admin_username,admin_pass,admin_status FROM admin WHERE admin_username = ? && admin_pass = ?");
+        $pre_stmt->bind_param("ss", $username, $password);
         $pre_stmt->execute() or die($this->conn->error);
         $result = $pre_stmt->get_result();
         if($result->num_rows<1){
-            return '<div id="demo" class="alert alert-error"><i class="fas fa-times"></i>Password or email incorrect</div>';
+            return '<div id="demo" class="alert alert-error"><i class="fas fa-times"></i>Password or username incorrect</div>';
         }else{
             $row = $result->fetch_assoc();
-            if($row['user_status']=='active'){
-                $u_id = $row['user_id'];
-                $u_uname = $row['user_name'];
-                $u_status = $row['user_status'];
-                $_SESSION['u_id'] = $u_id;
-                $_SESSION['u_uname'] = $u_uname;
-                $_SESSION['u_status'] = $u_status;
-                header('location:dashboard.php?uid='.$u_id.'&uname='.$u_uname.'&ustatus='.$u_status.'');
-            }else if($row['user_status']=='pending'){
-                return '<div class="alert alert-error"><i class="fas fa-times"></i>You have not verified your account</div>'; 
-            }else{
-                return '<div class="alert alert-error"><i class="fas fa-times"></i>Your have been banned</div>';
-            }
+            $id = $row['admin_username'];
+            $status = $row['admin_status'];
+            $_SESSION['admin'] = $id;
+            header('location:dashboard.php');
         }
     }
 

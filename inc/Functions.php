@@ -7,8 +7,8 @@ class Assignmentor{
 		$db = new Database();
 		$this->con = $db->connect();
     }
-    public function sumcount(){
-     $sql = "SELECT SUM(amount) FROM user_account WHERE status='verified'";
+    public function sumcount($sender){
+     $sql = "SELECT SUM(amount) FROM user_account WHERE status='verified' AND sender='$sender'";
      $res = $this->con->query($sql);
      $row = $res->fetch_assoc();
      return $row['SUM(amount)'];
@@ -62,14 +62,14 @@ class Assignmentor{
         }
 
     }
-    public function signup($email,$username,$fullname,$password,$adress,$uni,$age,$gender,$birthday){
+     public function signup($email,$username,$firstname,$lastname,$password,$adress,$uni,$age,$gender,$department,$profilepic){
         $checksql = "SELECT user_name FROM user WHERE user_email='$email' AND user_name='$username'";
         $chk_res = $this->con->query($checksql);
         $token = bin2hex(random_bytes(15));
         if($chk_res->num_rows>0){
             return '<div class="alert alert-error"><i class="fas fa-times"></i>User Already been registered</div>';
         }else{
-            $new_entry = "INSERT INTO user (user_fullname,user_email,user_pass,user_name,actiavation_token,address,university,age,gender,birthday) VALUES('$fullname','$email','$password','$username','$token','$adress','$uni','$age','$gender','$birthday')";
+            $new_entry = "INSERT INTO user (user_email,user_pass,user_name,actiavation_token,address,university,age,gender,first_name,last_name,department,profilepic) VALUES('$email','$password','$username','$token','$adress','$uni','$age','$gender','$firstname','$lastname','$department','$profilepic')";
             if($this->con->query($new_entry)==TRUE){
              $to_email = $email;
              $subject = "Account verification";
@@ -126,14 +126,21 @@ class Assignmentor{
     }
 
      public function user_payment($user_id,$solver_id,$ass_id){
-        $user_net_point = $this->sumcount();
-        if($user_net_point<25){
+        $user_net_point = $this->sumcount($user_id);
+        $sql = "SELECT net_money FROM user WHERE user_id='$user_id'";
+        $net = $this->con->query($sql);
+        $row = $net->fetch_assoc();
+        $net_money = $row['net_money'];
+        if($net_money<25){
              return '<div class="alert alert-error"><i class="fas fa-times"></i>Not enough points</div>';
         }else{
            $sql = "INSERT INTO solver_account (user_id,solver_acc_solver_id,solver_acc_ass_id) VALUES('$user_id','$solver_id','$ass_id')";
         if($this->con->query($sql)===TRUE){
             $sql2 = "UPDATE assignment SET assignment_pay_status='sent' WHERE assignment_id='$ass_id'";
             $res = $this->con->query($sql2);
+            $updated_money = $net_money-25;
+            $update_money_sql = "UPDATE user SET net_money='$updated_money'";
+            $update_excution = $this->con->query($update_money_sql);
             return '<div class="alert alert-success"><i class="fas fa-check"></i>Payment Sent Successfully Added</div>'; 
         }else{
             return '<div class="alert alert-error"><i class="fas fa-times"></i>Something Went Wrong</div>';

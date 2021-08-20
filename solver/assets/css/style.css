@@ -405,6 +405,17 @@ input[type="text"] {
 .upload_section {
   flex: 0.5;
 }
+.imageflex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imageflex img {
+  height: 187px;
+  width: 187px;
+  border-radius: 50%;
+}
 @media only screen and (max-width: 700px) {
   .up_section .flex {
     display: flex;

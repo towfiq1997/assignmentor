@@ -3,21 +3,22 @@ include 'inc/Functions.php';
 if(isset($_POST['submit'])){
     $email = $_POST['email'];
     $username = $_POST['username'];
-    $fullname = $_POST['fullname'];
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
     $password = $_POST['pass'];
     $adress = $_POST['address'];
     $uni = $_POST['uni'];
+    $department = $_POST['department'];
     $age = $_POST['age'];
     $gender = $_POST['gender'];
-    $birthday = $_POST['birthday'];
-
-    if($email==NULL || $username ==NULL || $password ==NULL || $fullname ==NULL){
-        $error = '<div class="alert alert-error"><i class="fas fa-times"></i>Field Must Not Be Empty</div>';
-    }else{
+    $filename = rand(1000,10000)."-".$_FILES['profilepic']['name'];
+    $tmp_name = $_FILES['profilepic']['tmp_name'];
+    $new_finale_name = strtolower($filename);
+    $finale_file = str_replace(' ','-',$new_finale_name);
+    if(move_uploaded_file($tmp_name,"uploads/".$finale_file)){
         $conn = new Assignmentor();
-        $signupp = $conn->signup($email,$username,$fullname,$password,$adress,$uni,$age,$gender,$birthday);
-       
-    }
+        $signupp = $conn->signup($email,$username,$firstname,$lastname,$password,$adress,$uni,$age,$gender,$department,$finale_file);  
+     }
  }
 ?>
 <!DOCTYPE html>
@@ -45,18 +46,22 @@ if(isset($_POST['submit'])){
             
             ?>
 
-            <form action="" method="post" style="width: 100%; height:100%" autocomplete="off">
-                <label for="FullName"><b>Full Name</b></label>
-                   <input  class="my-1 q-all" type="text" name="fullname" placeholder="Enter Full Name" id="user_fname" >
-                   <label for="email"><b>Email</b></label>
+            <form action="" method="post" style="width: 100%; height:100%" enctype="multipart/form-data">
+                <label for="FullName"><b>First Name *</b></label>
+                   <input  class="my-1 q-all" type="text" name="firstname" placeholder="Enter First Name" id="digit_validation" required>
+                <label for="FullName"><b>Last Name *</b></label>
+                   <input  class="my-1 q-all" type="text" name="lastname" placeholder="Enter Last Name" id="digit_validation" required>
+                   <label for="email"><b>Email *</b></label>
                    <input class="my-1 q-all" type="email" placeholder="Enter Email" name="email" id="user_email" required>
-                   <label for="FullName"><b>Address</b></label>
-                   <input  class="my-1 q-all" type="text" name="address" placeholder="Enter Address" id="address" >
-                   <label for="FullName"><b>University</b></label>
-                   <input  class="my-1 q-all" type="text" name="uni" placeholder="Enter University" id="uni" >
-                   <label for="FullName"><b>Age</b></label>
-                   <input  class="my-1 q-all" type="number" name="age" placeholder="Enter Age" id="age" >
-                   <label for="FullName"><b>Gender</b></label>
+                   <label for="FullName"><b>Address </b></label>
+                   <input  class="my-1 q-all" type="text" name="address" placeholder="Enter Address" id="digit_validation">
+                   <label for="FullName"><b>University *</b></label>
+                   <input  class="my-1 q-all" type="text" name="uni" placeholder="Enter University" id="digit_validation" required>
+                   <label for="css"><b>Department *</label><b>
+                   <input  class="my-1 q-all" type="text" name="department" placeholder="Enter Department Name" id="digit_validation" required>
+                   <label for="FullName"><b>Age *</b></label>
+                   <input  class="my-1 q-all" type="number" name="age" placeholder="Enter Age" id="age" required>
+                   <label for="FullName"><b>Gender </b></label>
                    <br>
                    <input type="radio" id="html" name="gender" value="male">
                    <label for="html">Male</label><br>
@@ -65,23 +70,31 @@ if(isset($_POST['submit'])){
                    <input type="radio" id="javascript" name="gender" value="Others">
                    <label for="javascript">Others</label>
                    <br><br> 
-                   <label for="username"><b>Birthday</b></label>
-                   <input class="my-1 q-all" type="date" placeholder="Enter Birthday" name="birthday"  required autocomplete="off">
-                   <br>
-                   <label for="username"><b>Username</b></label>
+                   <label for="username"><b>Username *</b></label>
                    <input class="my-1 q-all" type="text" placeholder="Enter Username" name="username" id="user_uname" required autocomplete="off">
-                   <label for="psw"><b>Password</b></label>
-                    <input class="my-1 q-all" type="password" name="pass" placeholder="Enter your password" autocomplete="off">
+                   <label for="psw"><b>Password *</b></label>
+                    <input class="my-1 q-all" type="password" name="pass" placeholder="Enter your password" autocomplete="off" required>
+                    <label for="psw"><b>Profile Pic *</b></label>
+                    <br>
+                    <input class="my-1 q-all" type="file" name="profilepic" placeholder="Upload Profile Pic"  required>
+                    
+                    <br>
                 <input class="btn" type="submit" name="submit" value="Sign Up">
             </form>
-            <a href="signin">Log In</a>
+            <br>
+            <button class="btn my-2">
+               <a style="color:white"  href="signin">Log In As User</a>
+            </button>
+            <br>
+            <button class="btn ">
+               <a style="color:white"  href="solver/index.php">Log In As Solver</a>
+            </button>
         </div>
     </div>
     <script>
         const fullname = document.getElementById("user_fname");
         const email = document.getElementById("user_email");
-const username = document.getElementById("user_uname");
-
+        const username = document.getElementById("user_uname");
 email.addEventListener("change", () => {
   const parts = email.value.split("@");
   const usernameValue = parts[0];
@@ -90,5 +103,6 @@ email.addEventListener("change", () => {
 });
 
     </script>
+    <script src="assets/js/app.js"></script>
 </body>
 </html>

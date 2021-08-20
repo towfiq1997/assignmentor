@@ -18,7 +18,6 @@ if (empty($uid) || empty($u_uname)) {
             <div class="container">
                 <div class="card">
                     <div class="post_title">
-                        <?php echo $count; ?>
                         <h2><i class="fas fa-question-circle"></i><?php echo $row['assignment_title'];?></h2>
                     </div>
                     <div class="post_information my-1 flex">

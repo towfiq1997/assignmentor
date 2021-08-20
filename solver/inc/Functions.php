@@ -89,14 +89,18 @@ class Assignmentor{
                 ));
         }
     }
-    public function signup($email,$username,$fullname,$password,$adress,$uni,$age,$gender,$birthday){
+     public function signup($email,$username,$firstname,$lastname,$password,$adress,$uni,$age,$gender,$department,$finale_file,$mobileno){
         $checksql = "SELECT solver_email FROM solver WHERE solver_email='$email' AND solver_username='$username'";
         $chk_res = $this->con->query($checksql);
         $token = bin2hex(random_bytes(15));
+        $userid = rand(1,1000);
         if($chk_res->num_rows>0){
             return '<div class="alert alert-error"><i class="fas fa-times"></i>User Already been registered</div>';
         }else{
-            $new_entry = "INSERT INTO solver (solver_fullname,solver_email,solver_pass,solver_username,actiavation_token,address,university,age,gender,birthday) VALUES('$fullname','$email','$password','$username','$token','$adress','$uni','$age','$gender','$birthday')";
+            $new_entry = "INSERT INTO solver (solver_id,solver_username,solver_email,solver_pass,actiavation_token,address,university,age,gender,first_name,last_name,profilepic,department,mobileno) VALUES('$userid','$username','$email','$password','$token','$adress','$uni','$age','$gender','$firstname','$lastname','$finale_file','$department','$mobileno')";
+            // $new_entry = "INSERT INTO solver(solver_id,solver_username,solver_email,solver_pass,solver_status) VALUES('676','LL','MM','NN','pending')";
+            // $query = $this->con->query($new_entry);
+
             if($this->con->query($new_entry)==TRUE){
              $to_email = $email;
              $subject = "Account verification";
@@ -110,6 +114,8 @@ class Assignmentor{
              }
              header('location:index.php?activation=1');
             }
+            // $entry = "INSERT INTO solver () VALUES('9')";
+            // $query = $this->con->query($entry);
         }
  }
 

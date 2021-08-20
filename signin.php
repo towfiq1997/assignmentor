@@ -69,6 +69,8 @@ if(isset($_POST['submit'])){
                 }, 1000);
             </script>
             <a href="signup.php">Sign Up</a>
+            <a href="solver/signup.php">Sign Up As Solver</a>
+            <a href="solver/index.php">Login As Solver</a>
             <a href="forgate_pass.php">Forgate Password</a>
         </div>
     </div> 

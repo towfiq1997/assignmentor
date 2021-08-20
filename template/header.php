@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="assets/css/utilities.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
-<body>
+<body style="background-color:#c9d2ff">
     <div class="header_search py-1">
         <div class="container flex">
               <a href="#" class="logo flex">
@@ -27,10 +27,14 @@
                       <?php
                       require 'inc/Functions.php';
                       $assignmentor = new Assignmentor();
-                      $netmoney = $assignmentor->sumcount();
+                      $iddd = $_SESSION['u_id'];
+                      $sql = "SELECT net_money FROM user WHERE user_id='$iddd'";
+                      $netmoney = $assignmentor->con->query($sql);
+                      $row = $netmoney->fetch_assoc();
+                      $moneyy = $row['net_money'];
                       ?>
                       <p><?php echo $_SESSION['u_uname']; ?></p>
-                      <p><?php echo $netmoney; ?></p>
+                      <p><?php echo $moneyy; ?></p>
 
                   </div>
                   

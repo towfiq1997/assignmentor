@@ -33,7 +33,7 @@ if(!isset($id)){
                                 ?>">
                     <div class="post_title flex my-1">
                         <h2><i class="fas fa-question-circle"></i><?php echo $row['assignment_title'];?></h2>
-                        <button type="button" class="btn-loading <?php if($status=='taken'){echo 'taken_btn';}?>" id="applyBtn" data-assid=<?php echo $row['assignment_id']; ?> data-solverId=<?php echo $id; ?>>
+                        <button type="button" class="btn-loading <?php if($status=='taken'){echo 'taken_btn';}?>" id="applyBtn" data-assid=<?php echo $row['assignment_id']; ?> data-solver=<?php echo $id; ?>>
                             <?php if($status=='taken'){
                                 echo 'Taken';
                                 }else{

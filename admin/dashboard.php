@@ -1,6 +1,11 @@
 <?php 
+session_start();
 include 'inc/Functions.php';
 include 'parts/header.php';
+$id = isset($_SESSION['admin']) ? $_SESSION['admin'] : NULL;
+if(!isset($id)){
+    header('location:index.php');
+}
 ?>
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -52,7 +57,7 @@ include 'parts/header.php';
             <?php 
             if($row['status']=="pending"){ ?>
                 <div class="flex_column icon_d red">
-                    <a href="trans_verification.php?id=<?php echo $row['id']; ?>">
+                    <a href="trans_verification.php?id=<?php echo $row['id']; ?>&amount=<?php echo $row['amount']; ?>&sender=<?php echo $row['sender']; ?>">
                        <span class="badge badge-danger">Pending</span>
                     </a>
                 </div>

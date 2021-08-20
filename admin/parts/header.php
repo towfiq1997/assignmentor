@@ -22,21 +22,33 @@
       </a>
       <hr class="sidebar-divider my-0">
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="posts.php">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Posts</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="userrating.php">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Ratings</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="accounts.php">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Account</span>
         </a>
        </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="dashboard.php">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>User Transaction </span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="logout.php">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Log out </span>
         </a>
       </li>
     </ul>

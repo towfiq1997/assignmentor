@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="assets/css/utilities.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
-<body>
+<body style="background-color:#c9d2ff">
     <div class="header_search py-1">
         <div class="container flex">
               <a href="signin.php" class="logo flex">
@@ -20,8 +20,7 @@
                   <input type="text" name="h_search" id="h_search">
               </div>
               <div class="account_info">
-                  <h5><?php echo $_SESSION['username']; ?></h5>
-                  <h5>500$</h5>
+                  <a href="account.php"><?php echo $_SESSION['username']; ?></a>
               </div>
         </div>
     </div>
@@ -31,10 +30,6 @@
                 <a class="flex-c" href="dashboard.php">
                     <img src="assets/images/icons/house.png" alt="">
                     <p>Home</p>
-                </a>
-                <a class="flex-c" href="addpost.php">
-                    <img src="assets/images/icons/plus.png" alt="">
-                    <p>Add Post</p>
                 </a>
                 <a class="flex-c" href="solver_dash">
                     <img src="assets/images/icons/dashboard.png" alt="">

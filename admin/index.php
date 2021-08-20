@@ -1,15 +1,27 @@
+<?php
+session_start();
+$id = isset($_SESSION['admin']) ? $_SESSION['admin'] : NULL;
+if (!empty($id)) {
+    header('location:dashboard.php');
+}
+require "inc/Functions.php";
+if(isset($_POST['submit'])){
+  $username=$_POST['username'];
+  $password = $_POST['password'];
+  $conn = new Assignmentor();
+  $signin = $conn->login($username,$password);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
   <link href="img/logo/logo.png" rel="icon">
-  <title>RuangAdmin - Login</title>
+  <title>Assignmentor - Admin</title>
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="css/ruang-admin.min.css" rel="stylesheet">
@@ -29,36 +41,19 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Login</h1>
                   </div>
-                  <form class="user">
+                  <form class="user" method="POST">
                     <div class="form-group">
-                      <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp"
-                        placeholder="Enter Email Address">
+                      <input type="text" name="username" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp"
+                        placeholder="Enter Username">
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control" id="exampleInputPassword" placeholder="Password">
+                      <input type="password" name="password" class="form-control" id="exampleInputPassword" placeholder="Enter Password">
                     </div>
                     <div class="form-group">
-                      <div class="custom-control custom-checkbox small" style="line-height: 1.5rem;">
-                        <input type="checkbox" class="custom-control-input" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">Remember
-                          Me</label>
-                      </div>
+                      <input type="submit" class="btn btn-primary btn-block" name="submit" value="Login">
                     </div>
-                    <div class="form-group">
-                      <a href="index.html" class="btn btn-primary btn-block">Login</a>
-                    </div>
-                    <hr>
-                    <a href="index.html" class="btn btn-google btn-block">
-                      <i class="fab fa-google fa-fw"></i> Login with Google
-                    </a>
-                    <a href="index.html" class="btn btn-facebook btn-block">
-                      <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                    </a>
                   </form>
                   <hr>
-                  <div class="text-center">
-                    <a class="font-weight-bold small" href="register.html">Create an Account!</a>
-                  </div>
                   <div class="text-center">
                   </div>
                 </div>

@@ -2,12 +2,33 @@ const myForm = document.querySelectorAll(".comment_form");
 const p_toogle = document.querySelectorAll("#commment_toggle");
 const applybtn = document.querySelectorAll("#applyBtn");
 
+const digit_validation = document.querySelectorAll("#digit_validation");
+digit_validation.forEach((single) => {
+  single.addEventListener("keyup", (e) => {
+    const value = e.target.value;
+    if (
+      value.includes(0) ||
+      value.includes(1) ||
+      value.includes(2) ||
+      value.includes(3) ||
+      value.includes(4) ||
+      value.includes(5) ||
+      value.includes(6) ||
+      value.includes(7) ||
+      value.includes(8) ||
+      value.includes(9)
+    ) {
+      alert("Digit is not allowed");
+    }
+  });
+});
+
 applybtn.forEach((s_btn) => {
   s_btn.addEventListener("click", (e) => {
     const loading = '<div class="loading-spinner"></div>';
     e.target.innerHTML = loading;
     const assid = Number(e.target.dataset.assid);
-    const solverId = Number(e.target.dataset.solverId);
+    const solverId = Number(e.target.dataset.solver);
     const applyData = {
       applyReq: 1,
       assignmentid: assid,
